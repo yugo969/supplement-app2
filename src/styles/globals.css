@@ -2,4 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    background-color: #444;
+}
 
+label {
+    font-size: 12px;
+    line-height: 1;
+}
+
+label + input {
+    margin-top: 8px;
+}
+
+input {
+    border-radius: 8px;
+    padding: 8px;
+}

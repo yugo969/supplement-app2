@@ -23,8 +23,8 @@ const SignupPage: React.FC = () => {
 		};
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className='flex h-screen bg-black justify-center items-center'>
+      <form className='flex w-96 flex-col gap-6 rounded-sm bg-gray-500 px-16 py-10' onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Email:</label>
           <input  className='text-black' type="email"{...register("email",{ required: true })} />
@@ -35,7 +35,7 @@ const SignupPage: React.FC = () => {
           <input className='text-black' type="text" {...register("password",{ required: true })} />
           {errors.password && <span>This field is required</span>}
         </div>
-        <button type="submit">アカウント作成</button>
+        <button type="submit" className="py-1 px-2 rounded-sm bg-orange-300">アカウント作成</button>
       </form>
     </div>
   );

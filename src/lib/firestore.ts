@@ -32,3 +32,10 @@ export const updateSupplement = async (id: string | undefined, data:any) => {
 export const deleteSupplement = async (id: string | undefined) => {
   await db.collection('supplements').doc(id).delete();
 };
+
+export const uploadImage = async (file: File) => {
+  const storageRef = firebase.storage().ref();
+  const fileRef = storageRef.child(file.name);
+  await fileRef.put(file);
+  return fileRef.getDownloadURL();
+};
