@@ -6,6 +6,7 @@ import { addSupplement, deleteSupplement, getSupplements, updateSupplement, uplo
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { MdDeleteForever, MdOutlineCancel } from "react-icons/md";
+import resizeImage from '@/lib/resizeImage';
 
 type FormData = {
   supplement_name: string;
@@ -22,6 +23,9 @@ type FormData = {
 type SupplementData = FormData & {
   imageUrl: string;
 };
+
+const maxWidth = 552;
+const maxHeight =366;
 
 export default function Home() {
   const {
@@ -116,12 +120,15 @@ export default function Home() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     const file = e.target.files?.[0];
+
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setUploadedImage(event.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+      resizeImage(file, maxWidth, maxHeight).then(resizedImageUrl => {
+          setUploadedImage(resizedImageUrl);
+      }).catch(error => {
+          console.error("画像のリサイズに失敗しました:", error);
+      });
+    } else {
+      console.error("ファイルが提供されていません");
     }
   };
 
@@ -164,16 +171,6 @@ export default function Home() {
                     {supplement.imageUrl ? (
 
                       <div className="relative w-full h-auto aspect-[3/2]">
-                        {/* <Image
-                          src={uploadedImage}
-                          alt="Uploaded"
-                          fill
-                          className="absolute inset-0 w-full h-full"
-                          style={{
-                            objectFit: 'cover',
-                          }}
-                        /> */}
-
                         <Image
                           src={supplement.imageUrl}
                           alt={supplement.supplement_name}
@@ -182,8 +179,6 @@ export default function Home() {
                           style={{
                             objectFit: 'contain',
                           }}
-                          // width={100}
-                          // height={100}
                         />
                       </div>
                     ) : (
