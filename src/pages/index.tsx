@@ -1,12 +1,13 @@
 import Image from 'next/image'
-import firebase from '../lib/firebaseClient';
-import { Inter } from 'next/font/google'
+import firebase from '@/lib/firebaseClient';
+// import { Inter } from 'next/font/google'
 import { useForm } from 'react-hook-form';
 import { addSupplement, deleteSupplement, getSupplements, updateSupplement, uploadImage } from '@/lib/firestore'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { MdDeleteForever, MdOutlineCancel } from "react-icons/md";
+import { MdAddAPhoto, MdDeleteForever, MdOutlineCancel, MdOutlineMedication, MdOutlineAddBox  } from "react-icons/md";
 import resizeImage from '@/lib/resizeImage';
+import { useNotification } from '@/lib/useNotification';
 
 type FormData = {
   supplement_name: string;
@@ -27,6 +28,7 @@ type SupplementData = FormData & {
 const maxWidth = 552;
 const maxHeight =366;
 
+
 export default function Home() {
   const {
     register, handleSubmit, formState: { errors }, setValue
@@ -36,6 +38,8 @@ export default function Home() {
   const [selectedSupplement, setSelectedSupplement] = useState<null | any>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
+  const { showNotification } = useNotification();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -56,6 +60,7 @@ export default function Home() {
   };
 
   const handleAddOrUpdateSupplement = async (data: FormData) => {
+
     let imageUrl = uploadedImage;
     if (data.image && data.image[0]) {
       imageUrl = await uploadImage(data.image[0]);
@@ -68,21 +73,19 @@ export default function Home() {
 
     if (selectedSupplement) {
       await updateSupplement(selectedSupplement.id, supplementData);
-      setNotification('サプリ情報を更新しました');
+      showNotification({ message: 'サプリ情報を編集しました' });
     } else {
       await addSupplement(supplementData);
-      setNotification('サプリ情報を追加しました');
+      showNotification({ message: 'サプリ情報を追加しました' });
     }
 
     setIsModalOpen(false);
     setSelectedSupplement(null);
-    setUploadedImage(null); // リセット
+    setUploadedImage(null);
 
     getSupplements().then(data => {
       setSupplements(data);
-    //   setNotification('サプリ情報を追加しました');
     }).catch(() => {
-      setNotification('サプリ情報の追加に失敗しました');
     });
   }
 
@@ -106,11 +109,12 @@ export default function Home() {
 
   const handleDeleteSupplement = async (id: string) => {
     await deleteSupplement(id);
+
     getSupplements().then(data => {
       setSupplements(data);
-      setNotification('サプリ情報を削除しました');
+      showNotification({ message: 'サプリ情報を削除しました' });
     }).catch(() => {
-      setNotification('サプリ情報の削除に失敗しました');
+      showNotification({ message: 'サプリ情報の削除に失敗しました' });
     });
   }
 
@@ -149,13 +153,17 @@ export default function Home() {
 
   return (
     <div className={`relative ${isModalOpen && "overflow-hidden"}`}>
-      <div className='flex flex-col w-screen h-screen p-10 gap-6'>
-        <div className='flex justify-between border-b p-6'>
-          <h2 className='text-white text-lg'>サプリストック</h2>
-          <div className='flex gap-6'>
-            <button className="py-1 px-2 rounded-sm bg-orange-300" onClick={() => setIsModalOpen(true)}>サプリ追加</button>
+      <button className="fixed flex flex-col justify-center items-center w-24 h-26 bottom-6 right-6 z-10 border-4 border-white/80 md:hidden text-xs shadow-xl pt-1 p-2 text-orange-950 font-semibold rounded-xl bg-orange-400" onClick={() => setIsModalOpen(true)}>
+        <MdOutlineAddBox size={64} />
+        <span>サプリ追加</span>
+      </button>
+      <div className='flex flex-col w-screen h-screen md:p-10 p-4 gap-6'>
+        <div className='flex justify-between items-center border-b md:p-6 pb-3 px-0'>
+          <h2 className='flex items-center gap-3 text-white md:text-lg text-md'><MdOutlineMedication size={32} /><span className='md:text-[32] font-bold'>サプリストック</span></h2>
+          <div className='flex md:gap-6 gap-4'>
+            <button className="py-1 md:px-4 px-3 text-bold rounded-md bg-orange-300 md:flex hidden" onClick={() => setIsModalOpen(true)}>サプリ追加</button>
             <button
-              className="py-1 px-2 text-sm rounded-sm bg-gray-300"
+              className="py-1 md:px-4 px-3 text-sm rounded-md bg-gray-300"
               onClick={handleLogout}
             >ログアウト</button>
           </div>
@@ -165,8 +173,8 @@ export default function Home() {
           <div className='flex flex-col'>
             <div className='flex flex-wrap gap-6'>
               {supplements.map((supplement) => (
-                <div key={supplement.id} className="flex flex-col justify-between gap-6 w-60 py-6 px-6 rounded-lg border-4 border-orange-400 bg-zinc-50">
-                  <div className='flex flex-col gap-2'>
+                <div key={supplement.id} className="flex flex-col justify-between gap-3 md:w-72 w-full pb-2 rounded-lg border-4 border-orange-400 bg-zinc-50">
+                  <div className='flex flex-col'>
                     {/* 画像を表示 */}
                     {supplement.imageUrl ? (
 
@@ -175,9 +183,10 @@ export default function Home() {
                           src={supplement.imageUrl}
                           alt={supplement.supplement_name}
                           fill
-                          className="absolute inset-0 w-full h-full"
+                          className="inset-0 w-full h-full rounded-t"
                           style={{
-                            objectFit: 'contain',
+                            // objectFit: 'contain',
+                            objectFit: 'cover',
                           }}
                         />
                       </div>
@@ -187,27 +196,29 @@ export default function Home() {
 
                     <h3 className='py-1 px-4 bg-orange-500 text-bold text-16px text-white'>{supplement.supplement_name}</h3>
 
-                    <div>
-                      <span className="text-[12px] border-b flex grow">用量</span>
-                      <p>{supplement.dosage} {supplement.dosage_unit}</p>
-                    </div>
-                    <div>
-                      <span className="text-[12px] border-b flex grow">一回の摂取量</span>
-                      <p>{supplement.intake_amount} {supplement.intake_unit}</p>
-                    </div>
-                    <div className='flex flex-col gap-2'>
-                      <span className="text-[12px] border-b flex grow">摂取タイミング</span>
-                      <p className='flex gap-2 text-[12px]'>
-                        {supplement.timing_morning && (<span className="rounded-full flex py-1 px-4 bg-orange-100">朝</span>)}
-                        {supplement.timing_noon && <span className="rounded-full flex py-1 px-4 bg-orange-100">昼</span>}
-                        {supplement.timing_night && <span className="rounded-full flex py-1 px-4 bg-orange-100">夜</span>}
-                      </p>
+                    <div className='flex flex-col gap-4 py-3 px-2'>
+                      <div>
+                        <span className="text-[12px] border-b flex grow">用量</span>
+                        <p className='md:text-lg text-xl'>{supplement.dosage} {supplement.dosage_unit}</p>
+                      </div>
+                      <div>
+                        <span className="text-[12px] border-b flex grow">一回の服用量</span>
+                        <p className='md:text-lg text-xl'>{supplement.intake_amount} {supplement.intake_unit}</p>
+                      </div>
+                      <div className='flex flex-col md:gap-2 gap-2'>
+                        <span className="text-[12px] border-b flex grow">服用タイミング</span>
+                        <p className='flex gap-2 md:text-sm text-base text-orange-950 font-semibold'>
+                          {supplement.timing_morning && (<span className="rounded-full flex py-1 px-4 bg-orange-100">朝</span>)}
+                          {supplement.timing_noon && <span className="rounded-full flex py-1 px-4 bg-orange-100">昼</span>}
+                          {supplement.timing_night && <span className="rounded-full flex py-1 px-4 bg-orange-100">夜</span>}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className='flex gap-6 text-md self-end'>
-                    <button className="py-1 px-2 rounded-sm bg-orange-300" onClick={() => handleOpenUpdateModal(supplement)}>編集</button>
-                    <button className="py-1 px-2 text-sm rounded-sm bg-gray-300" onClick={() => handleDeleteSupplement(supplement.id)}>削除</button>
+                  <div className='flex gap-3 self-end px-2'>
+                    <button className="py-2 px-5 rounded-md bg-orange-300" onClick={() => handleOpenUpdateModal(supplement)}>編集</button>
+                    <button className="py-2 px-5 rounded-md bg-gray-300" onClick={() => handleDeleteSupplement(supplement.id)}>削除</button>
                   </div>
                 </div>
               ))}
@@ -227,13 +238,19 @@ export default function Home() {
           }}
         >
           <form
-            className='relative flex flex-col w-fit py-8 gap-6 px-20 bg-slate-400 rounded-lg'
-            onSubmit={handleSubmit(handleAddOrUpdateSupplement)} onClick={(e) => e.stopPropagation()}>
+            className='relative flex flex-col md:w-fit w-[92vw] md:h-fit h-[95vh] gap-6 md:py-8 md:px-20 p-4 bg-slate-400 rounded-lg'
+            onSubmit={(e) => {
+              e.preventDefault(); // ページのリロードを防ぐ
+              handleSubmit(handleAddOrUpdateSupplement)(e);
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
 
-            <div className="group relative w-full aspect-[3/2] bg-gray-200">
+            <div className="group relative w-full aspect-[3/2] rounded-md bg-gray-200">
               {!uploadedImage ? (
-                <label className="absolute inset-0 flex items-center justify-center cursor-pointer">
-                  add image
+                <label className="absolute inset-0 flex flex-col items-center justify-center gap-2 cursor-pointer">
+                  <MdAddAPhoto size={64} />
+                  <span className='text-[16px]'>画像追加</span>
                   <input
                     type="file"
                     {...register("image")}
@@ -287,8 +304,8 @@ export default function Home() {
             </div>
 
             <div>
-              <label htmlFor="intake-amount">一回の摂取量</label>
-              <div className='flex gap-2'>
+              <label htmlFor="intake-amount">一回の服用量</label>
+              <div className='flex gap-2 md:text-lg text-xl'>
                 <input type="text" id="intake-amount" {...register("intake_amount")} />
                 <select
                   defaultValue={""}
@@ -303,16 +320,16 @@ export default function Home() {
             </div>
 
             <div>
-              <label>摂取タイミング:</label>
-              <div className='flex  gap-5'>
-                <label><input type="checkbox" {...register("timing_morning")} />朝</label>
-                <label><input type="checkbox" {...register("timing_noon")} />昼</label>
-                <label><input type="checkbox" {...register("timing_night")} />夜</label>
+              <label>服用タイミング:</label>
+              <div className='flex gap-5'>
+                <label className='flex items-center gap-2'><input className='w-6 h-auto' type="checkbox" {...register("timing_morning")} />朝</label>
+                <label className='flex items-center gap-2'><input type="checkbox" {...register("timing_noon")} />昼</label>
+                <label className='flex items-center gap-2'><input type="checkbox" {...register("timing_night")} />夜</label>
               </div>
             </div>
 
-            <button className="p-1 rounded-sm bg-orange-300" type="submit">
-              {selectedSupplement ? '更新' : '登録'}
+            <button className="p-2 rounded-md font-semibold text-gray-700 bg-orange-300" type="submit">
+              {selectedSupplement ? '編集' : '登録'}
             </button>
             <button className='absolute right-4 top-4 w-8 h-8 rounded-full'
              onClick= {() =>{
