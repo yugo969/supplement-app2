@@ -1,12 +1,1 @@
-# TypeScript
-*.ts linguist-detectable=true
-*.tsx linguist-detectable=true
-
-# React
-*.jsx linguist-detectable=true
-
-# Tailwind CSS
-*.css linguist-detectable=true
-
-# Markdown
-*.md linguist-detectable=false
+*.tsx linguist-language=React
