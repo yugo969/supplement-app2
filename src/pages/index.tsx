@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import firebase from '@/lib/firebaseClient';
-// import { Inter } from 'next/font/google'
 import { useForm } from 'react-hook-form';
 import { addSupplement, deleteSupplement, getSupplements, updateSupplement, uploadImage } from '@/lib/firestore'
 import { useEffect, useState } from 'react';
