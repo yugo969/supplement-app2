@@ -1,20 +1,31 @@
-import React from 'react'
-import { useNotification } from '@/lib/useNotification';
+import {
+  DialogOverlay,
+  DialogContent,
+  DialogClose,
+  Dialog,
+} from "@/components/ui/dialog";
+import { useNotification } from "@/lib/useNotification";
+import { XIcon } from "lucide-react";
+import { NotificationProps } from "@/lib/useNotification";
 
 const NotificationPopup = () => {
   const { isVisible, notificationProps } = useNotification();
-  if(!isVisible || !notificationProps) return null;
+  if (!isVisible || !notificationProps) return null;
+  const props = notificationProps as NotificationProps;
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 overflow-hidden overscroll-none flex justify-center items-center w-screen h-screen bg-black/60">
-      <div className="flex w-fit h-fit rounded-lg py-10 px-16 bg-white/90 text-black ">
-        {notificationProps.message}
-      </div>
-    </div>
+    <Dialog open={isVisible} onOpenChange={props.onClose}>
+      <DialogOverlay className="bg-black/60 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+      <DialogContent className="w-fit max-w-md p-8 rounded-xl bg-white/90 backdrop-blur-sm border-2 border-gray-200 shadow-xl">
+        <div className="text-gray-900 text-center text-lg">
+          {notificationProps.message}
+        </div>
+        <DialogClose className="absolute top-6 right-6 p-1 hover:bg-gray-100 rounded-full transition-colors">
+          <XIcon className="size-5 text-gray-600" />
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
   );
-}
+};
 
-export default NotificationPopup
-
-
-
+export default NotificationPopup;
