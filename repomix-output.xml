@@ -43,20 +43,26 @@ The content is organized as follows:
 </file_summary>
 
 <directory_structure>
-components/
-  ui/
-    button.tsx
-public/
-  next.svg
-  vercel.svg
+.cursor/
+  rules/
+    global.mdc
 src/
   components/
+    ui/
+      button.tsx
+      dialog.tsx
+      sonner.tsx
+      toast.tsx
+      toaster.tsx
     NotificationPopup.tsx
+  hooks/
+    use-toast.ts
   lib/
     firebaseClient.ts
     firestore.ts
     resizeImage.ts
     useNotification.ts
+    utils.ts
   pages/
     api/
       hello.ts
@@ -69,35 +75,873 @@ src/
     NotificationContext.tsx
   styles/
     globals.css
+.eslintignore
 .eslintrc.json
 .gitattributes
 .gitignore
+components.json
 cors.json
+directorystructure.md
 next.config.js
 package.json
 postcss.config.js
 README.md
 tailwind.config.js
+technologystack.md
 tsconfig.json
 </directory_structure>
 
 <files>
 This section contains the contents of the repository's files.
 
-<file path="components/ui/button.tsx">
-import { Button } from 'shadcn-ui';
+<file path=".cursor/rules/global.mdc">
+---
+description: Apply this rule to the entire repository
+globs: 
+alwaysApply: true
+---
+あなたは高度な問題解決能力を持つAIアシスタントです。以下の指示に従って、効率的かつ正確にタスクを遂行してください。
 
-export const MyButton = ({ children, ...props }) => (
-  <Button {...props}>{children}</Button>
+まず、ユーザーから受け取った指示を確認します：
+<指示>
+{{instructions}}
+<!-- このテンプレート変数はユーザーの入力プロンプトに自動置換されます -->
+</指示>
+
+この指示を元に、以下のプロセスに従って作業を進めてください：
+
+---
+
+1. 指示の分析と計画
+   <タスク分析>
+   - 主要なタスクを簡潔に要約してください。
+   - 記載された技術スタックを確認し、その制約内での実装方法を検討してください。  
+     **※ 技術スタックに記載のバージョンは変更せず、必要があれば必ず承認を得てください。**
+   - 重要な要件と制約を特定してください。
+   - 潜在的な課題をリストアップしてください。
+   - タスク実行のための具体的なステップを詳細に列挙してください。
+   - それらのステップの最適な実行順序を決定してください。
+   
+   ### 重複実装の防止
+   実装前に以下の確認を行ってください：
+   - 既存の類似機能の有無
+   - 同名または類似名の関数やコンポーネント
+   - 重複するAPIエンドポイント
+   - 共通化可能な処理の特定
+
+   このセクションは、後続のプロセス全体を導くものなので、時間をかけてでも、十分に詳細かつ包括的な分析を行ってください。
+   </タスク分析>
+
+---
+
+2. タスクの実行
+   - 特定したステップを一つずつ実行してください。
+   - 各ステップの完了後、簡潔に進捗を報告してください。
+   - 実装時は以下の点に注意してください：
+     - 適切なディレクトリ構造の遵守
+     - 命名規則の一貫性維持
+     - 共通処理の適切な配置
+
+---
+
+3. 品質管理と問題対応
+   - 各タスクの実行結果を迅速に検証してください。
+   - エラーや不整合が発生した場合は、以下のプロセスで対応してください：
+     a. 問題の切り分けと原因特定（ログ分析、デバッグ情報の確認）
+     b. 対策案の作成と実施
+     c. 修正後の動作検証
+     d. デバッグログの確認と分析
+   
+   - 検証結果は以下の形式で記録してください：
+     a. 検証項目と期待される結果
+     b. 実際の結果と差異
+     c. 必要な対応策（該当する場合）
+
+---
+
+4. 最終確認
+   - すべてのタスクが完了したら、成果物全体を評価してください。
+   - 当初の指示内容との整合性を確認し、必要に応じて調整を行ってください。
+   - 実装した機能に重複がないことを最終確認してください。
+
+---
+
+5. 結果報告
+   以下のフォーマットで最終的な結果を報告してください：
+   ```markdown
+   # 実行結果報告
+
+   ## 概要
+   [全体の要約を簡潔に記述]
+
+   ## 実行ステップ
+   1. [ステップ1の説明と結果]
+   2. [ステップ2の説明と結果]
+   ...
+
+   ## 最終成果物
+   [成果物の詳細や、該当する場合はリンクなど]
+
+   ## 課題対応（該当する場合）
+   - 発生した問題と対応内容
+   - 今後の注意点
+
+   ## 注意点・改善提案
+   - [気づいた点や改善提案があれば記述]
+   ```
+
+---
+
+## 重要な注意事項
+
+- 不明点がある場合は、作業開始前に必ず確認を取ってください。
+- 重要な判断が必要な場合は、その都度報告し、承認を得てください。
+- 予期せぬ問題が発生した場合は、即座に報告し、対応策を提案してください。
+- **明示的に指示されていない変更は行わないでください。** 必要と思われる変更がある場合は、まず提案として報告し、承認を得てから実施してください。
+- **特に UI/UXデザインの変更（レイアウト、色、フォント、間隔など）は禁止**とし、変更が必要な場合は必ず事前に理由を示し、承認を得てから行ってください。
+- **技術スタックに記載のバージョン（APIやフレームワーク、ライブラリ等）を勝手に変更しないでください。** 変更が必要な場合は、その理由を明確にして承認を得るまでは変更を行わないでください。
+
+---
+
+# 技術スタック
+
+@technologystack.md
+
+---
+
+# ディレクトリ構成
+
+@directorystructure.md
+
+以上の指示に従い、確実で質の高い実装を行います。指示された範囲内でのみ処理を行い、不要な追加実装は行いません。不明点や重要な判断が必要な場合は、必ず確認を取ります。
+</file>
+
+<file path="src/components/ui/dialog.tsx">
+import * as React from "react"
+import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { XIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+
+function Dialog({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Root>) {
+  return <DialogPrimitive.Root data-slot="dialog" {...props} />
+}
+
+function DialogTrigger({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
+}
+
+function DialogPortal({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Portal>) {
+  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
+}
+
+function DialogClose({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Close>) {
+  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
+}
+
+function DialogOverlay({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
+  return (
+    <DialogPrimitive.Overlay
+      data-slot="dialog-overlay"
+      className={cn(
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function DialogContent({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Content>) {
+  return (
+    <DialogPortal data-slot="dialog-portal">
+      <DialogOverlay />
+      <DialogPrimitive.Content
+        data-slot="dialog-content"
+        className={cn(
+          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
+          className
+        )}
+        {...props}
+      >
+        {children}
+        <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
+          <XIcon />
+          <span className="sr-only">Close</span>
+        </DialogPrimitive.Close>
+      </DialogPrimitive.Content>
+    </DialogPortal>
+  )
+}
+
+function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="dialog-header"
+      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
+      {...props}
+    />
+  )
+}
+
+function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="dialog-footer"
+      className={cn(
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function DialogTitle({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Title>) {
+  return (
+    <DialogPrimitive.Title
+      data-slot="dialog-title"
+      className={cn("text-lg leading-none font-semibold", className)}
+      {...props}
+    />
+  )
+}
+
+function DialogDescription({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Description>) {
+  return (
+    <DialogPrimitive.Description
+      data-slot="dialog-description"
+      className={cn("text-muted-foreground text-sm", className)}
+      {...props}
+    />
+  )
+}
+
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+}
+</file>
+
+<file path="src/components/ui/sonner.tsx">
+"use client"
+
+import { useTheme } from "next-themes"
+import { Toaster as Sonner, ToasterProps } from "sonner"
+
+const Toaster = ({ ...props }: ToasterProps) => {
+  const { theme = "system" } = useTheme()
+
+  return (
+    <Sonner
+      theme={theme as ToasterProps["theme"]}
+      className="toaster group"
+      style={
+        {
+          "--normal-bg": "var(--popover)",
+          "--normal-text": "var(--popover-foreground)",
+          "--normal-border": "var(--border)",
+        } as React.CSSProperties
+      }
+      {...props}
+    />
+  )
+}
+
+export { Toaster }
+</file>
+
+<file path="src/components/ui/toast.tsx">
+"use client"
+
+import * as React from "react"
+import * as ToastPrimitives from "@radix-ui/react-toast"
+import { cva, type VariantProps } from "class-variance-authority"
+import { X } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+
+const ToastProvider = ToastPrimitives.Provider
+
+const ToastViewport = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Viewport>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Viewport
+    ref={ref}
+    className={cn(
+      "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+      className
+    )}
+    {...props}
+  />
+))
+ToastViewport.displayName = ToastPrimitives.Viewport.displayName
+
+const toastVariants = cva(
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",
+  {
+    variants: {
+      variant: {
+        default: "border bg-background text-foreground",
+        destructive:
+          "destructive group border-destructive bg-destructive text-destructive-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+const Toast = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Root>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
+    VariantProps<typeof toastVariants>
+>(({ className, variant, ...props }, ref) => {
+  return (
+    <ToastPrimitives.Root
+      ref={ref}
+      className={cn(toastVariants({ variant }), className)}
+      {...props}
+    />
+  )
+})
+Toast.displayName = ToastPrimitives.Root.displayName
+
+const ToastAction = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Action>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Action
+    ref={ref}
+    className={cn(
+      "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-secondary focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",
+      className
+    )}
+    {...props}
+  />
+))
+ToastAction.displayName = ToastPrimitives.Action.displayName
+
+const ToastClose = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Close>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Close
+    ref={ref}
+    className={cn(
+      "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
+      className
+    )}
+    toast-close=""
+    {...props}
+  >
+    <X className="h-4 w-4" />
+  </ToastPrimitives.Close>
+))
+ToastClose.displayName = ToastPrimitives.Close.displayName
+
+const ToastTitle = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Title>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Title
+    ref={ref}
+    className={cn("text-sm font-semibold [&+div]:text-xs", className)}
+    {...props}
+  />
+))
+ToastTitle.displayName = ToastPrimitives.Title.displayName
+
+const ToastDescription = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Description>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Description
+    ref={ref}
+    className={cn("text-sm opacity-90", className)}
+    {...props}
+  />
+))
+ToastDescription.displayName = ToastPrimitives.Description.displayName
+
+type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
+
+type ToastActionElement = React.ReactElement<typeof ToastAction>
+
+export {
+  type ToastProps,
+  type ToastActionElement,
+  ToastProvider,
+  ToastViewport,
+  Toast,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+  ToastAction,
+}
+</file>
+
+<file path="src/components/ui/toaster.tsx">
+"use client"
+
+import { useToast } from "@/hooks/use-toast"
+import {
+  Toast,
+  ToastClose,
+  ToastDescription,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+} from "@/components/ui/toast"
+
+export function Toaster() {
+  const { toasts } = useToast()
+
+  return (
+    <ToastProvider>
+      {toasts.map(function ({ id, title, description, action, ...props }) {
+        return (
+          <Toast key={id} {...props}>
+            <div className="grid gap-1">
+              {title && <ToastTitle>{title}</ToastTitle>}
+              {description && (
+                <ToastDescription>{description}</ToastDescription>
+              )}
+            </div>
+            {action}
+            <ToastClose />
+          </Toast>
+        )
+      })}
+      <ToastViewport />
+    </ToastProvider>
+  )
+}
+</file>
+
+<file path="src/hooks/use-toast.ts">
+import * as React from "react"
+
+import type {
+  ToastActionElement,
+  ToastProps,
+} from "@/components/ui/toast"
+
+const TOAST_LIMIT = 1
+const TOAST_REMOVE_DELAY = 1000000
+
+type ToasterToast = ToastProps & {
+  id: string
+  title?: React.ReactNode
+  description?: React.ReactNode
+  action?: ToastActionElement
+}
+
+const actionTypes = {
+  ADD_TOAST: "ADD_TOAST",
+  UPDATE_TOAST: "UPDATE_TOAST",
+  DISMISS_TOAST: "DISMISS_TOAST",
+  REMOVE_TOAST: "REMOVE_TOAST",
+} as const
+
+let count = 0
+
+function genId() {
+  count = (count + 1) % Number.MAX_SAFE_INTEGER
+  return count.toString()
+}
+
+type ActionType = typeof actionTypes
+
+type Action =
+  | {
+      type: ActionType["ADD_TOAST"]
+      toast: ToasterToast
+    }
+  | {
+      type: ActionType["UPDATE_TOAST"]
+      toast: Partial<ToasterToast>
+    }
+  | {
+      type: ActionType["DISMISS_TOAST"]
+      toastId?: ToasterToast["id"]
+    }
+  | {
+      type: ActionType["REMOVE_TOAST"]
+      toastId?: ToasterToast["id"]
+    }
+
+interface State {
+  toasts: ToasterToast[]
+}
+
+const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
+
+const addToRemoveQueue = (toastId: string) => {
+  if (toastTimeouts.has(toastId)) {
+    return
+  }
+
+  const timeout = setTimeout(() => {
+    toastTimeouts.delete(toastId)
+    dispatch({
+      type: "REMOVE_TOAST",
+      toastId: toastId,
+    })
+  }, TOAST_REMOVE_DELAY)
+
+  toastTimeouts.set(toastId, timeout)
+}
+
+export const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "ADD_TOAST":
+      return {
+        ...state,
+        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
+      }
+
+    case "UPDATE_TOAST":
+      return {
+        ...state,
+        toasts: state.toasts.map((t) =>
+          t.id === action.toast.id ? { ...t, ...action.toast } : t
+        ),
+      }
+
+    case "DISMISS_TOAST": {
+      const { toastId } = action
+
+      // ! Side effects ! - This could be extracted into a dismissToast() action,
+      // but I'll keep it here for simplicity
+      if (toastId) {
+        addToRemoveQueue(toastId)
+      } else {
+        state.toasts.forEach((toast) => {
+          addToRemoveQueue(toast.id)
+        })
+      }
+
+      return {
+        ...state,
+        toasts: state.toasts.map((t) =>
+          t.id === toastId || toastId === undefined
+            ? {
+                ...t,
+                open: false,
+              }
+            : t
+        ),
+      }
+    }
+    case "REMOVE_TOAST":
+      if (action.toastId === undefined) {
+        return {
+          ...state,
+          toasts: [],
+        }
+      }
+      return {
+        ...state,
+        toasts: state.toasts.filter((t) => t.id !== action.toastId),
+      }
+  }
+}
+
+const listeners: Array<(state: State) => void> = []
+
+let memoryState: State = { toasts: [] }
+
+function dispatch(action: Action) {
+  memoryState = reducer(memoryState, action)
+  listeners.forEach((listener) => {
+    listener(memoryState)
+  })
+}
+
+type Toast = Omit<ToasterToast, "id">
+
+function toast({ ...props }: Toast) {
+  const id = genId()
+
+  const update = (props: ToasterToast) =>
+    dispatch({
+      type: "UPDATE_TOAST",
+      toast: { ...props, id },
+    })
+  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+
+  dispatch({
+    type: "ADD_TOAST",
+    toast: {
+      ...props,
+      id,
+      open: true,
+      onOpenChange: (open) => {
+        if (!open) dismiss()
+      },
+    },
+  })
+
+  return {
+    id: id,
+    dismiss,
+    update,
+  }
+}
+
+function useToast() {
+  const [state, setState] = React.useState<State>(memoryState)
+
+  React.useEffect(() => {
+    listeners.push(setState)
+    return () => {
+      const index = listeners.indexOf(setState)
+      if (index > -1) {
+        listeners.splice(index, 1)
+      }
+    }
+  }, [state])
+
+  return {
+    ...state,
+    toast,
+    dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
+  }
+}
+
+export { useToast, toast }
+</file>
+
+<file path="src/lib/utils.ts">
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+</file>
+
+<file path=".eslintignore">
+node_modules
+.next
+postcss.config.js
+</file>
+
+<file path="components.json">
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
+}
+</file>
+
+<file path="directorystructure.md">
+# ディレクトリ構成（※本記載は記入例です-プロジェクトに合わせて内容を更新してください-）
+
+以下のディレクトリ構造に従って実装を行ってください：
+
+```
+/
+├── app/                          # Next.jsのアプリケーションディレクトリ
+│   ├── api/                      # APIエンドポイント
+│   │   └── [endpoint]/
+│   │       └── route.ts
+│   ├── components/               # アプリケーションコンポーネント
+│   │   ├── ui/                   # 基本UI（button, card等）
+│   │   └── layout/               # レイアウト関連
+│   ├── hooks/                    # カスタムフック
+│   ├── lib/                      # ユーティリティ
+│   │   ├── api/                  # API関連処理
+│   │   │   ├── client.ts         # 変更禁止: AIモデル設定
+│   │   │   ├── types.ts          # 変更禁止: 型定義
+│   │   │   └── config.ts         # 変更禁止: 環境設定
+│   │   └── utils/                # 共通関数
+│   ├── styles/                   # スタイル定義
+│   ├── favicon.ico               # ファビコン
+│   ├── globals.css               # グローバルスタイル
+│   ├── layout.tsx                # ルートレイアウト
+│   └── page.tsx                  # ホームページ
+├── public/                       # 静的ファイル
+├── node_modules/                 # 依存パッケージ
+├── .git/                         # Gitリポジトリ
+├── .cursor/                      # Cursor設定
+├── package.json                  # プロジェクト設定
+├── package-lock.json             # 依存関係ロックファイル
+├── tsconfig.json                 # TypeScript設定
+├── next-env.d.ts                 # Next.js型定義
+├── next.config.ts                # Next.js設定
+├── postcss.config.mjs            # PostCSS設定
+├── eslint.config.mjs             # ESLint設定
+└── .gitignore                    # Git除外設定
+```
+
+### 配置ルール
+- UIコンポーネント → `app/components/ui/`
+- APIエンドポイント → `app/api/[endpoint]/route.ts`
+- 共通処理 → `app/lib/utils/`
+- API関連処理 → `app/lib/api/`
+</file>
+
+<file path="technologystack.md">
+# 技術スタック（※本記載は記入例です-プロジェクトに合わせて内容を更新してください-）
+
+## コア技術
+- TypeScript: ^5.0.0
+- Node.js: ^20.0.0  
+- **AIモデル: claude-3-7-sonnet-20250219 (Anthropic Messages API 2023-06-01) ← バージョン変更禁止**
+
+## フロントエンド
+- Next.js: ^15.1.3
+- React: ^19.0.0
+- Tailwind CSS: ^3.4.17
+- shadcn/ui: ^2.1.8
+
+## バックエンド
+- SQLite: ^3.0.0
+- Prisma: ^5.0.0
+
+## 開発ツール
+- npm: ^10.0.0
+- ESLint: ^9.0.0
+- TypeScript: ^5.0.0
+
+---
+
+# API バージョン管理
+## 重要な制約事項
+- APIクライアントは `app/lib/api/client.ts` で一元管理
+- AI モデルのバージョンは client.ts 内で厳密に管理
+- これらのファイルは変更禁止（変更が必要な場合は承認が必要）：
+  - client.ts  - AIモデルとAPI設定の中核
+  - types.ts   - 型定義の一元管理
+  - config.ts  - 環境設定の一元管理
+
+## 実装規則
+- AIモデルのバージョンは client.ts でのみ定義
+- 型定義は必ず types.ts を参照
+- 環境変数の利用は config.ts 経由のみ許可
+</file>
+
+<file path="src/components/ui/button.tsx">
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+type ButtonVariant =
+  | "default"
+  | "destructive"
+  | "outline"
+  | "secondary"
+  | "ghost"
+  | "link"
+  | "text";
+
+type ButtonSize = "default" | "sm" | "lg" | "icon";
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  variant?: ButtonVariant; // 明示的に型を指定
+  size?: ButtonSize; // 明示的に型を指定
+}
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline:
+          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        ghost:
+          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        link: "text-primary underline-offset-4 hover:underline",
+        text: "text-primary hover:text-primary/80 bg-transparent",
+      },
+      size: {
+        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        icon: "size-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
 );
-</file>
 
-<file path="public/next.svg">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
-</file>
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
 
-<file path="public/vercel.svg">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>
+Button.displayName = "Button";
+
+export { Button, buttonVariants };
 </file>
 
 <file path="src/components/NotificationPopup.tsx">
@@ -343,7 +1187,7 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
-}
+};
 </file>
 
 <file path="README.md">
@@ -390,22 +1234,106 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <file path="tailwind.config.js">
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ["class"],
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        "on-surface": "hsl(var(--on-surface))",
+        "on-surface-variant": "hsl(var(--on-surface-variant))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        // text: {
+        //   primary: "hsl(var(--text-primary))",
+        //   secondary: "hsl(var(--text-secondary))",
+        // },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
+        },
+        // マテリアルデザインカラーシステム
+        // surface: "hsl(var(--surface))",
+        // "on-surface": "hsl(var(--on-surface))",
+        // "surface-container-highest": "hsl(var(--surface-container-highest))",
+        // primary: "hsl(var(--primary))",
+        // "on-primary": "hsl(var(--on-primary))",
+      },
+      fontSize: {
+        "title-medium": [
+          "1.5rem",
+          {
+            lineHeight: "2rem",
+            fontWeight: "500",
+          },
+        ],
+        "label-small": [
+          "0.75rem",
+          {
+            letterSpacing: "0.025em",
+          },
+        ],
+        "body-large": "1.125rem",
+      },
+      // textColor: {
+      //   "on-surface": "hsl(var(--on-surface))",
+      //   "on-surface-variant": "hsl(var(--on-surface-variant))",
+      //   "on-primary": "hsl(var(--on-primary))",
+      // },
+      transitionTimingFunction: {
+        easeOutBack: "cubic-bezier(0.34, 1.56, 0.64, 1)",
       },
     },
   },
-  plugins: [],
-}
+  plugins: [require("tailwindcss-animate")],
+};
 </file>
 
 <file path="tsconfig.json">
@@ -611,25 +1539,219 @@ module.exports = nextConfig;
 
 <file path="src/styles/globals.css">
 @tailwind base;
+
 @tailwind components;
 @tailwind utilities;
 
 body {
-    background-color: #444;
+  background-color: #444;
 }
 
 label {
-    font-size: 12px;
-    line-height: 1;
+  font-size: 12px;
+  line-height: 1;
 }
 
 label + input {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 input {
-    border-radius: 8px;
-    padding: 8px;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 26 95% 53%; /* Orange-500相当のHSL */
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 27 96% 61%; /* Orange-400相当のHSL (ダークモード用に少し明るく) */
+    --primary-foreground: 240 5% 4%; /* Dark Gray/Black */
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --text-primary: 0 0% 13%;
+  --text-secondary: 0 0% 45%;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --text-primary: 0 0% 98%;
+  --text-secondary: 0 0% 70%;
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+@layer base {
+  :root {
+    --foreground: 0 0% 3.9%;
+    --on-surface: 0 0% 98%;
+    --on-surface-variant: 0 0% 63.9%;
+    /* 他のCSS変数を定義 */
+  }
 }
 </file>
 
@@ -674,37 +1796,64 @@ input {
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.6",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "autoprefixer": "10.4.15",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "firebase": "^10.3.1",
+    "lucide-react": "^0.486.0",
     "next": "13.4.19",
-    "postcss": "8.4.29",
+    "next-themes": "^0.4.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.46.1",
     "react-icons": "^4.11.0",
     "shadcn-ui": "^0.9.5",
-    "tailwindcss": "3.3.3",
+    "sonner": "^2.0.2",
+    "tailwind-merge": "^3.1.0",
+    "tw-animate-css": "^1.2.5",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.6"
   }
 }
 </file>
 
 <file path="src/pages/index.tsx">
-import Image from 'next/image'
-import firebase from '@/lib/firebaseClient';
-import { useForm } from 'react-hook-form';
-import { addSupplement, deleteSupplement, getSupplements, updateSupplement, uploadImage } from '@/lib/firestore'
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { MdAddAPhoto, MdDeleteForever, MdOutlineCancel, MdOutlineMedication, MdOutlineAddBox  } from "react-icons/md";
-import resizeImage from '@/lib/resizeImage';
-import { useNotification } from '@/lib/useNotification';
+import Image from "next/image";
+import firebase from "@/lib/firebaseClient";
+import { useForm } from "react-hook-form";
+import {
+  addSupplement,
+  deleteSupplement,
+  getSupplements,
+  updateSupplement,
+  uploadImage,
+} from "@/lib/firestore";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import {
+  MdAddAPhoto,
+  MdDeleteForever,
+  MdOutlineCancel,
+  MdOutlineMedication,
+  MdOutlineAddBox,
+} from "react-icons/md";
+import resizeImage from "@/lib/resizeImage";
+import { useNotification } from "@/lib/useNotification";
+import { Button } from "@/components/ui/button";
 
 type FormData = {
   supplement_name: string;
@@ -723,16 +1872,20 @@ type SupplementData = FormData & {
 };
 
 const maxWidth = 552;
-const maxHeight =366;
-
+const maxHeight = 366;
 
 export default function Home() {
   const {
-    register, handleSubmit, formState: { errors }, setValue
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
   } = useForm<FormData>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [supplements, setSupplements] = useState<any[]>([]);
-  const [selectedSupplement, setSelectedSupplement] = useState<null | any>(null);
+  const [selectedSupplement, setSelectedSupplement] = useState<null | any>(
+    null
+  );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
   const { showNotification } = useNotification();
@@ -743,51 +1896,50 @@ export default function Home() {
     const user = firebase.auth().currentUser;
     if (user) {
       setIsLoggedIn(true);
-      getSupplements().then(data => setSupplements(data));
+      getSupplements().then((data) => setSupplements(data));
     } else {
       setIsLoggedIn(false);
-       router.push('/login'); // ログインページへリダイレクト
+      router.push("/login"); // ログインページへリダイレクト
     }
   }, [router]);
 
   const handleLogout = async () => {
     await firebase.auth().signOut();
     setIsLoggedIn(false);
-    router.push('/login');
+    router.push("/login");
   };
 
   const handleAddOrUpdateSupplement = async (data: FormData) => {
-
     let imageUrl = uploadedImage;
     if (data.image && data.image[0]) {
       imageUrl = await uploadImage(data.image[0]);
     }
 
     const supplementData = { ...data, imageUrl }; // 画像のURLを含むデータを作成
-    if ('image' in supplementData) {
+    if ("image" in supplementData) {
       delete supplementData.image; // imageキーを削除
     }
 
     if (selectedSupplement) {
       await updateSupplement(selectedSupplement.id, supplementData);
-      showNotification({ message: 'サプリ情報を編集しました' });
+      showNotification({ message: "サプリ情報を編集しました" });
     } else {
       await addSupplement(supplementData);
-      showNotification({ message: 'サプリ情報を追加しました' });
+      showNotification({ message: "サプリ情報を追加しました" });
     }
 
     setIsModalOpen(false);
     setSelectedSupplement(null);
     setUploadedImage(null);
 
-    getSupplements().then(data => {
-      setSupplements(data);
-    }).catch(() => {
-    });
-  }
+    getSupplements()
+      .then((data) => {
+        setSupplements(data);
+      })
+      .catch(() => {});
+  };
 
   const handleOpenUpdateModal = (supplement: SupplementData) => {
-
     setSelectedSupplement(supplement);
     setIsModalOpen(true);
 
@@ -802,32 +1954,35 @@ export default function Home() {
     setValue("timing_night", supplement.timing_night);
     // すでに登録されている画像URLをuploadedImageに設定
     setUploadedImage(supplement.imageUrl);
-  }
+  };
 
   const handleDeleteSupplement = async (id: string) => {
     await deleteSupplement(id);
 
-    getSupplements().then(data => {
-      setSupplements(data);
-      showNotification({ message: 'サプリ情報を削除しました' });
-    }).catch(() => {
-      showNotification({ message: 'サプリ情報の削除に失敗しました' });
-    });
-  }
+    getSupplements()
+      .then((data) => {
+        setSupplements(data);
+        showNotification({ message: "サプリ情報を削除しました" });
+      })
+      .catch(() => {
+        showNotification({ message: "サプリ情報の削除に失敗しました" });
+      });
+  };
 
   // サプリメント画像の操作
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     const file = e.target.files?.[0];
 
     if (file) {
-      resizeImage(file, maxWidth, maxHeight).then(resizedImageUrl => {
+      resizeImage(file, maxWidth, maxHeight)
+        .then((resizedImageUrl) => {
           setUploadedImage(resizedImageUrl);
-      }).catch(error => {
+        })
+        .catch((error) => {
           console.error("画像のリサイズに失敗しました:", error);
-      });
+        });
     } else {
       console.error("ファイルが提供されていません");
     }
@@ -839,115 +1994,180 @@ export default function Home() {
 
   const user = firebase.auth().currentUser;
   if (user) {
-    console.log("ユーザーは認証されています")
+    console.log("ユーザーは認証されています");
   } else {
-    console.log("ユーザーは認証されていません")
+    console.log("ユーザーは認証されていません");
   }
 
   firebase.auth().currentUser;
-  if (!isLoggedIn) <p>ログインしてください</p>
-
+  if (!isLoggedIn) <p>ログインしてください</p>;
 
   return (
     <div className={`relative ${isModalOpen && "overflow-hidden"}`}>
-      <button className="fixed flex flex-col justify-center items-center w-24 h-26 bottom-6 right-6 z-10 border-4 border-white/80 md:hidden text-xs shadow-xl pt-1 p-2 text-orange-950 font-semibold rounded-xl bg-orange-400" onClick={() => setIsModalOpen(true)}>
+      <Button
+        className="fixed flex flex-col justify-center items-center w-24 h-26 bottom-6 right-6 z-10 border-4 border-white/80 md:hidden text-xs shadow-xl pt-1 p-2 text-orange-950 font-semibold rounded-xl bg-orange-400"
+        onClick={() => setIsModalOpen(true)}
+      >
         <MdOutlineAddBox size={64} />
         <span>サプリ追加</span>
-      </button>
-      <div className='flex flex-col w-screen h-screen md:p-10 p-4 gap-6'>
-        <div className='flex justify-between items-center border-b md:p-6 pb-3 px-0'>
-          <h2 className='flex items-center gap-3 text-white md:text-lg text-md'><MdOutlineMedication size={32} /><span className='md:text-[32] font-bold'>サプリストック</span></h2>
-          <div className='flex md:gap-6 gap-4'>
-            <button className="py-1 md:px-4 px-3 text-bold rounded-md bg-orange-300 md:flex hidden" onClick={() => setIsModalOpen(true)}>サプリ追加</button>
+      </Button>
+      <div className="flex flex-col w-screen h-screen md:p-10 p-4 gap-6">
+        <div className="flex justify-between items-center border-b md:p-6 pb-3 px-0">
+          <h2 className="flex items-center gap-3 text-white md:text-lg text-md">
+            <MdOutlineMedication size={32} />
+            <span className="md:text-[32] font-bold">サプリストック</span>
+          </h2>
+          <div className="flex md:gap-6 gap-4">
+            <button
+              className="py-1 md:px-4 px-3 text-bold rounded-md bg-orange-300 md:flex hidden"
+              onClick={() => setIsModalOpen(true)}
+            >
+              サプリ追加
+            </button>
             <button
               className="py-1 md:px-4 px-3 text-sm rounded-md bg-gray-300"
               onClick={handleLogout}
-            >ログアウト</button>
+            >
+              ログアウト
+            </button>
           </div>
         </div>
 
         {isLoggedIn && (
-          <div className='flex flex-col'>
-            <div className='flex flex-wrap gap-6'>
+          <div className="flex flex-col">
+            <div className="flex flex-wrap gap-6">
               {supplements.map((supplement) => (
-                <div key={supplement.id} className="flex flex-col justify-between gap-3 md:w-72 w-full pb-2 rounded-lg border-4 border-orange-400 bg-zinc-50">
-                  <div className='flex flex-col'>
+                <div
+                  key={supplement.id}
+                  className="relative flex flex-col justify-between gap-3 rounded-lg w-full md:w-72 overflow-hidden transition-all duration-300 ease-easeOutBack transform hover:scale-[1.02] hover:shadow-xl group bg-zinc-50"
+                >
+                  <div className="flex flex-col bg-surface-container-highest rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200">
                     {/* 画像を表示 */}
                     {supplement.imageUrl ? (
-
-                      <div className="relative w-full h-auto aspect-[3/2]">
+                      <div className="relative w-full aspect-[3/2] h-auto overflow-hidden">
                         <Image
                           src={supplement.imageUrl}
                           alt={supplement.supplement_name}
                           fill
-                          className="inset-0 w-full h-full rounded-t"
-                          style={{
-                            // objectFit: 'contain',
-                            objectFit: 'cover',
-                          }}
+                          // className="inset-0 w-full h-full rounded-t"
+                          className="object-cover transition-opacity duration-300 group-hover:opacity-90"
+                          // style={{
+                          //   // objectFit: 'contain',
+                          //   objectFit: "cover",
+                          // }}
                         />
+                        <div className="absolute inset-0 bg-gradient-to-t from-surface/90 via-transparent to-transparent" />
                       </div>
                     ) : (
-                      <p className='flex justify-center items-center w-full h-[100px] bg-gray-400'>no-image</p>
+                      <p className="flex justify-center items-center w-full h-[100px] bg-gray-400">
+                        no-image
+                      </p>
                     )}
+                    <div className="p-4 space-y-3">
+                      <h3 className="text-title-medium text-foreground font-medium">
+                        {supplement.supplement_name}
+                      </h3>
 
-                    <h3 className='py-1 px-4 bg-orange-500 text-bold text-16px text-white'>{supplement.supplement_name}</h3>
-
-                    <div className='flex flex-col gap-4 py-3 px-2'>
-                      <div>
-                        <span className="text-[12px] border-b flex grow">用量</span>
-                        <p className='md:text-lg text-xl'>{supplement.dosage} {supplement.dosage_unit}</p>
-                      </div>
-                      <div>
-                        <span className="text-[12px] border-b flex grow">一回の服用量</span>
-                        <p className='md:text-lg text-xl'>{supplement.intake_amount} {supplement.intake_unit}</p>
-                      </div>
-                      <div className='flex flex-col md:gap-2 gap-2'>
-                        <span className="text-[12px] border-b flex grow">服用タイミング</span>
-                        <p className='flex gap-2 md:text-sm text-base text-orange-950 font-semibold'>
-                          {supplement.timing_morning && (<span className="rounded-full flex py-1 px-4 bg-orange-100">朝</span>)}
-                          {supplement.timing_noon && <span className="rounded-full flex py-1 px-4 bg-orange-100">昼</span>}
-                          {supplement.timing_night && <span className="rounded-full flex py-1 px-4 bg-orange-100">夜</span>}
-                        </p>
+                      <div className="space-y-2">
+                        <div className="flex flex-col gap-4 py-3 px-2">
+                          <div>
+                            {/* <span className="text-[12px] border-b flex grow
+                            "> */}
+                            <span
+                              className="text-label-small text-on-surface-variant
+                            "
+                            >
+                              用量
+                            </span>
+                            <p
+                              className="md:text-lg text-xl text-body-large text-on-surface
+                            "
+                            >
+                              {supplement.dosage} {supplement.dosage_unit}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-[12px] border-b flex grow">
+                              一回の服用量
+                            </span>
+                            <p className="md:text-lg text-xl">
+                              {supplement.intake_amount}{" "}
+                              {supplement.intake_unit}
+                            </p>
+                          </div>
+                          <div className="flex flex-col md:gap-2 gap-2">
+                            <span className="text-[12px] border-b flex grow">
+                              服用タイミング
+                            </span>
+                            <p className="flex gap-2 md:text-sm text-base text-orange-950 font-semibold">
+                              {supplement.timing_morning && (
+                                <span className="rounded-full flex py-1 px-4 bg-orange-100">
+                                  朝
+                                </span>
+                              )}
+                              {supplement.timing_noon && (
+                                <span className="rounded-full flex py-1 px-4 bg-orange-100">
+                                  昼
+                                </span>
+                              )}
+                              {supplement.timing_night && (
+                                <span className="rounded-full flex py-1 px-4 bg-orange-100">
+                                  夜
+                                </span>
+                              )}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className='flex gap-3 self-end px-2'>
-                    <button className="py-2 px-5 rounded-md bg-orange-300" onClick={() => handleOpenUpdateModal(supplement)}>編集</button>
-                    <button className="py-2 px-5 rounded-md bg-gray-300" onClick={() => handleDeleteSupplement(supplement.id)}>削除</button>
+                    {/* <div className="flex gap-3 self-end px-2"> */}
+                    <div className="flex gap-2  justify-end">
+                      <Button
+                        variant="text"
+                        // className="py-2 px-5 rounded-md bg-orange-300"
+                        className="text-primary"
+                        onClick={() => handleOpenUpdateModal(supplement)}
+                      >
+                        編集
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        className="py-2 px-5 rounded-md bg-gray-300"
+                        onClick={() => handleDeleteSupplement(supplement.id)}
+                      >
+                        削除
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-
           </div>
-
         )}
-
       </div>
       {isModalOpen && (
         <div
           className="modal overscroll-none overflow-auto bg-black/50 w-screen h-screen absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center"
-          onClick= {() =>{
+          onClick={() => {
             setIsModalOpen(false);
             setSelectedSupplement(null);
           }}
         >
           <form
-            className='relative flex flex-col md:w-fit w-[92vw] md:h-fit h-[95vh] gap-6 md:py-8 md:px-20 p-4 bg-slate-400 rounded-lg'
+            className="relative flex flex-col md:w-fit w-[92vw] md:h-fit h-[95vh] gap-6 md:py-8 md:px-20 p-4 bg-slate-400 rounded-lg"
             onSubmit={(e) => {
               e.preventDefault(); // ページのリロードを防ぐ
               handleSubmit(handleAddOrUpdateSupplement)(e);
             }}
             onClick={(e) => e.stopPropagation()}
           >
-
             <div className="group relative w-full aspect-[3/2] rounded-md bg-gray-200">
               {!uploadedImage ? (
                 <label className="absolute inset-0 flex flex-col items-center justify-center gap-2 cursor-pointer">
                   <MdAddAPhoto size={64} />
-                  <span className='text-[16px]'>画像追加</span>
+                  <span className="text-[16px]">画像追加</span>
                   <input
                     type="file"
                     {...register("image")}
@@ -963,7 +2183,7 @@ export default function Home() {
                     fill
                     className="absolute inset-0 w-full h-full"
                     style={{
-                      objectFit: 'cover',
+                      objectFit: "cover",
                     }}
                   />
                   <div className="relative w-full h-full opacity-0 transition duration-300 group-hover:opacity-100 bg-black/70">
@@ -972,27 +2192,30 @@ export default function Home() {
                       onClick={handleImageDelete}
                     >
                       <MdDeleteForever size={60} />
-                      <span className='text-[14px]'>削除</span>
+                      <span className="text-[14px]">削除</span>
                     </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className='flex flex-col'>
+            <div className="flex flex-col">
               <label htmlFor="supplement-name">サプリ名</label>
-              <input type="text" id="supplement-name" {...register("supplement_name",{ required: true })} />
+              <input
+                type="text"
+                id="supplement-name"
+                {...register("supplement_name", { required: true })}
+              />
             </div>
 
             <div>
               <label htmlFor="dosage">用量</label>
-              <div className='flex gap-2'>
+              <div className="flex gap-2">
                 <input type="text" id="dosage" {...register("dosage")} />
-                <select
-                  defaultValue={""}
-                  {...register("dosage_unit")}
-                >
-                  <option value="" disabled>単位</option>
+                <select defaultValue={""} {...register("dosage_unit")}>
+                  <option value="" disabled>
+                    単位
+                  </option>
                   <option value="錠">錠</option>
                   <option value="g">g</option>
                   <option value="ml">ml</option>
@@ -1002,13 +2225,16 @@ export default function Home() {
 
             <div>
               <label htmlFor="intake-amount">一回の服用量</label>
-              <div className='flex gap-2 md:text-lg text-xl'>
-                <input type="text" id="intake-amount" {...register("intake_amount")} />
-                <select
-                  defaultValue={""}
-                  {...register("intake_unit")}
-                >
-                  <option value="" disabled>単位</option>
+              <div className="flex gap-2 md:text-lg text-xl">
+                <input
+                  type="text"
+                  id="intake-amount"
+                  {...register("intake_amount")}
+                />
+                <select defaultValue={""} {...register("intake_unit")}>
+                  <option value="" disabled>
+                    単位
+                  </option>
                   <option value="錠">錠</option>
                   <option value="g">g</option>
                   <option value="ml">ml</option>
@@ -1018,26 +2244,44 @@ export default function Home() {
 
             <div>
               <label>服用タイミング:</label>
-              <div className='flex gap-5'>
-                <label className='flex items-center gap-2'><input className='w-6 h-auto' type="checkbox" {...register("timing_morning")} />朝</label>
-                <label className='flex items-center gap-2'><input type="checkbox" {...register("timing_noon")} />昼</label>
-                <label className='flex items-center gap-2'><input type="checkbox" {...register("timing_night")} />夜</label>
+              <div className="flex gap-5">
+                <label className="flex items-center gap-2">
+                  <input
+                    className="w-6 h-auto"
+                    type="checkbox"
+                    {...register("timing_morning")}
+                  />
+                  朝
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" {...register("timing_noon")} />昼
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" {...register("timing_night")} />夜
+                </label>
               </div>
             </div>
 
-            <button className="p-2 rounded-md font-semibold text-gray-700 bg-orange-300" type="submit">
-              {selectedSupplement ? '編集' : '登録'}
+            <button
+              className="p-2 rounded-md font-semibold text-gray-700 bg-orange-300"
+              type="submit"
+            >
+              {selectedSupplement ? "編集" : "登録"}
             </button>
-            <button className='absolute right-4 top-4 w-8 h-8 rounded-full'
-             onClick= {() =>{
+            <button
+              className="absolute right-4 top-4 w-8 h-8 rounded-full"
+              onClick={() => {
                 setIsModalOpen(false);
                 setSelectedSupplement(null);
-              }}><MdOutlineCancel size={32} /></button>
+              }}
+            >
+              <MdOutlineCancel size={32} />
+            </button>
           </form>
         </div>
       )}
     </div>
-  )
+  );
 }
 </file>
 
