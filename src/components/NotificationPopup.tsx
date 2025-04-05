@@ -5,7 +5,6 @@ import {
   Dialog,
 } from "@/components/ui/dialog";
 import { useNotification } from "@/lib/useNotification";
-import { XIcon } from "lucide-react";
 import { NotificationProps } from "@/lib/useNotification";
 
 const NotificationPopup = () => {
@@ -20,9 +19,6 @@ const NotificationPopup = () => {
         <div className="text-gray-900 text-center text-lg">
           {notificationProps.message}
         </div>
-        <DialogClose className="absolute top-6 right-6 p-1 hover:bg-gray-100 rounded-full transition-colors">
-          <XIcon className="size-5 text-gray-600" />
-        </DialogClose>
       </DialogContent>
     </Dialog>
   );
