@@ -6,10 +6,14 @@ import {
 } from "@/components/ui/dialog";
 import { useNotification } from "@/lib/useNotification";
 import { NotificationProps } from "@/lib/useNotification";
+import { NOTIFICATION_CONFIG } from "@/config/notifications";
 
 const NotificationPopup = () => {
   const { isVisible, notificationProps } = useNotification();
+
+  if (NOTIFICATION_CONFIG.useShadcn) return null;
   if (!isVisible || !notificationProps) return null;
+
   const props = notificationProps as NotificationProps;
 
   return (

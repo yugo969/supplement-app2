@@ -36,3 +36,7 @@ next-env.d.ts
 
 # Repomix output file
 repomix-output.xml
+
+# clinerules
+.clinerules
+memory_bank
