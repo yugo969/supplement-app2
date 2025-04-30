@@ -1,10 +1,21 @@
 @tailwind base;
-
 @tailwind components;
 @tailwind utilities;
 
 body {
   background-color: #444;
+}
+
+/* カスタムトーストスタイル */
+.toast-viewport {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+  z-index: 9999 !important;
 }
 
 label {

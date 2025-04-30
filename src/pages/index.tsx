@@ -201,18 +201,30 @@ export default function Home() {
     setUploadedImage(supplement.imageUrl);
   };
 
-  const handleDeleteSupplement = async (id: string) => {
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [selectedDeleteId, setSelectedDeleteId] = useState<string | null>(null);
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedDeleteId) return;
+
     try {
-      await deleteSupplement(id);
-      // リストを再取得
+      await deleteSupplement(selectedDeleteId);
       getSupplements().then((data) => {
-        setSupplements(data as Supplement[]); // 型アサーションを追加
-        notify("サプリ情報を削除しました", "success"); // showNotificationをnotifyに変更
+        setSupplements(data as Supplement[]);
+        notify("サプリ情報を削除しました", "success");
       });
     } catch (error) {
       console.error("サプリ情報の削除に失敗:", error);
-      notify("サプリ情報の削除に失敗しました", "error"); // showNotificationをnotifyに変更
+      notify("サプリ情報の削除に失敗しました", "error");
+    } finally {
+      setDeleteConfirmOpen(false);
+      setSelectedDeleteId(null);
     }
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setSelectedDeleteId(id);
+    setDeleteConfirmOpen(true);
   };
 
   // サプリメント画像の操作
@@ -417,9 +429,7 @@ export default function Home() {
                             variant="destructive"
                             size="sm"
                             className="bg-red-500 hover:bg-red-600"
-                            onClick={() =>
-                              handleDeleteSupplement(supplement.id)
-                            }
+                            onClick={() => handleDeleteClick(supplement.id)}
                           >
                             削除
                           </Button>
@@ -434,7 +444,30 @@ export default function Home() {
         )}
       </div>
 
-      {/* モーダル */}
+      {/* 削除確認ダイアログ */}
+      {deleteConfirmOpen && (
+        <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="relative bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-lg font-semibold mb-4">本当に削除しますか？</h3>
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setDeleteConfirmOpen(false);
+                  setSelectedDeleteId(null);
+                }}
+              >
+                キャンセル
+              </Button>
+              <Button variant="destructive" onClick={handleDeleteConfirm}>
+                削除
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 追加/編集モーダル */}
       {isModalOpen && (
         <div
           className="fixed inset-0 z-50 flex justify-center items-center bg-black/60 backdrop-blur-sm p-4" // fixed inset-0, backdrop-blur
@@ -446,9 +479,9 @@ export default function Home() {
             onSubmit={handleSubmit(handleAddOrUpdateSupplement)}
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            {/* <h3 className="text-xl font-semibold text-gray-800">
               {selectedSupplement ? "サプリ編集" : "サプリ追加"}
-            </h3>
+            </h3> */}
             {/* 画像アップロードエリア */}
             <div className="group relative w-full aspect-[3/2] rounded-md bg-gray-100 border border-dashed border-gray-300 flex items-center justify-center">
               {!uploadedImage ? (
@@ -644,11 +677,11 @@ export default function Home() {
             {/* 閉じるボタン (アイコン) */}
             <button
               type="button" // submitさせない
-              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+              className="absolute right-2 top-2 text-gray-400 hover:text-gray-600"
               onClick={closeModal}
               aria-label="閉じる"
             >
-              <MdOutlineCancel size={24} />
+              <MdOutlineCancel size={28} />
             </button>
           </form>
         </div>
